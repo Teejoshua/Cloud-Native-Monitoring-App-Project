@@ -1,11 +1,6 @@
 # Cloud-Native-Monitoring-App
 
 ## Deploying an App built with Python using Flask and psutil on ECR and Kubernetes
-<<<<<<< HEAD
-This is a monitoring app built with python, and it would be containerized with docker and deployed to EkS
-=======
-This is a monitoring app built with python, and it would be contanerized with docker and deployed to EkS
->>>>>>> c5f82f7c5dcc81285f1c0320adedd3138ae59a32
 
 ### Prerequisites
 - Learn Docker and How to containerize a Python application
