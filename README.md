@@ -1,6 +1,11 @@
 # Cloud-Native-Monitoring-App
 
 ## Deploying an App built with Python using Flask and psutil on ECR and Kubernetes
+<<<<<<< HEAD
+This is a monitoring app built with python, and it would be containerized with docker and deployed to EkS
+=======
+This is a monitoring app built with python, and it would be contanerized with docker and deployed to EkS
+>>>>>>> c5f82f7c5dcc81285f1c0320adedd3138ae59a32
 
 ### Prerequisites
 - Learn Docker and How to containerize a Python application
@@ -13,12 +18,12 @@
 - Create Kubernetes Deployments and Services using Python!
 
 ### STEP 1 - Installations of Services on your WorkStation
-- Install AWS CLI, then Go to your aws account and get your secret keys and configure the workspace aws configure
+- Install AWS CLI, then Go to your aws account and get your secret keys and configure the workspace `aws configure`
 - Install [python](https://www.python.org/downloads/) on your workstation and a python extention in vscode
-- The application uses the **psutil** and **Flask, Plotly, boto3** libraries. Install them using pip pip3 install -r requirements.txt
-- Install dependencies psutil pip3 install psutil and flask pip install flask
-- Install python for ECR SDK pip install boto3 
-- Install kubernetes, add the K8S python dependencies client  library pip install kubernetes
+- The application uses the **`psutil`** and **`Flask`, Plotly, boto3** libraries. Install them using pip `pip3 install -r requirements.txt`
+- Install dependencies psutil `pip3 install psutil` and flask `pip install flask`
+- Install python for ECR SDK `pip install boto3` 
+- Install kubernetes, add the K8S python dependencies client  library `pip install kubernetes`
  the extenstion of kubernetes in vscode
 - Install the docker extention in vscode
 
@@ -26,17 +31,17 @@
 
 To run the application, navigate to the root directory of the project and execute the following command:
 
-
+```
 $ python3 app.py
+```
 
-
-This will start the Flask server on **localhost:5000**. Navigate to [http://localhost:5000/](http://localhost:5000/) on your browser to access the application.
+This will start the Flask server on **`localhost:5000`**. Navigate to [http://localhost:5000/](http://localhost:5000/) on your browser to access the application.
 
 ### Step 3: Dockerizing the Flask application
 
-- Create a **Dockerfile** in the root directory of the project with the following contents:
+- Create a **`Dockerfile`** in the root directory of the project with the following contents:
 
-yml
+```yml
 # Use the official Python image as the base image
 FROM python:3.9-slim-buster
 
@@ -59,28 +64,28 @@ EXPOSE 5000
 
 # Start the Flask app when the container is run
 CMD ["flask", "run"]
-
+```
 
 - Build the Docker image, execute the following command:
 
-yml
+```yml
 $ docker build -t <image_name> .
-
+```
 
 -  Run the Docker container, execute the following command:
 
-yml
+```yml
 $ docker run -p 5000:5000 <image_name>
+```
 
-
-This will start the Flask server in a Docker container on **localhost:5000**. Navigate to [http://localhost:5000/](http://localhost:5000/) on your browser to access the application.
+This will start the Flask server in a Docker container on **`localhost:5000`**. Navigate to [http://localhost:5000/](http://localhost:5000/) on your browser to access the application.
 
 ### Step 4 - Pushing the Docker image to ECR
 
-- Create an ECR repository using Python in a folder ecr.py:
-- Configure the ECR repository to your workspace to enable a push, you will find the process in console view push commands
+- Create an ECR repository using Python in a folder `ecr.py`:
+- Configure the ECR repository to your workspace to enable a push, you will find the process in console `view push commands`
 
-py
+```py
 import boto3
 
 # Create an ECR client
@@ -93,26 +98,26 @@ response = ecr_client.create_repository(repositoryName=repository_name)
 # Print the repository URI
 repository_uri = response['repository']['repositoryUri']
 print(repository_uri)
-
-Then run this python3 ecr.py
+```
+Then run this `python3 ecr.py`
 
 - Push the Docker image to ECR using the push commands on the console:
 
-
+```
  $ docker push <ecr_repo_uri>:<tag>
-
+```
 
 ### Step 5 - Creating an EKS cluster and deploying the app using Python**
 
 
-- Create an EKS cluster cloud-native-cluster and add node group in aws console
+- Create an EKS cluster `cloud-native-cluster` and add node group in aws console
 
 
-- Create a node group nodes in the EKS cluster.
+- Create a node group `nodes` in the EKS cluster.
 
-- Create deployment and service in a folder eks.py
+- Create deployment and service in a folder `eks.py`
 
-py
+```py
 from kubernetes import client, config
 
 # Load Kubernetes configuration
@@ -169,21 +174,21 @@ api_instance.create_namespaced_service(
     namespace="default",
     body=service
 )
-
+```
 
 make sure to edit the name of the image on line 25 with your image Url.
 
-> *To run the K8s commands for  deployment and service instead of adding the python script you create `deployment.yml and service.yml`use these commands kubectl apply -f deployment.yml and kubectl apply -f service.yml*
+> *To run the K8s commands for  deployment and service instead of adding the python script you create `deployment.yml and service.yml`use these commands `kubectl apply -f deployment.yml` and `kubectl apply -f service.yml`*
 
 - Configure the aws EKS to your work space
-yml
+```yml
 aws eks update-kubeconfig --name cloud-native-cluster
-
+```
 
 - Once you run this file by running “python3 eks.py” deployment and service will be created.
 - Check by running following commands:
 
-yml
+```yml
 kubectl get deployment -n default (check deployments)
 kubectl get service -n default (check service)
 kubectl get pods <name of pod> -n default (to check the pods)
@@ -193,12 +198,12 @@ kubectl edit deployment my-flask-app -n default
 
 #this will pull down the editted image
 kubectl get pod -n default -w
-
+```
 
 Once your pod is up and running, run the port-forward to expose the service
-yml
+```yml
 kubectl port-forward service/<service_name> 5000:5000
-
+```
 
 
 #### Author by [Joshua Tanimola](https://github.com/Teejoshua)
